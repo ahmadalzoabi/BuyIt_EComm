@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: LogInPage.routeName,
         routes: <String, WidgetBuilder>{
-          LogInPage.routeName: (context) => LogInPage(), // default routes or main route
+          LogInPage.routeName: (context) =>
+              LogInPage(), // default routes or main route
         });
   }
 }
