@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './screens/home.dart';
+import './screens/logIn_Screen.dart';
+import './screens/SignUp_Screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,10 +18,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.amber,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: LogInPage.routeName,
+        initialRoute: LogInPage.routeName, // default routes or main route
         routes: <String, WidgetBuilder>{
-          LogInPage.routeName: (context) =>
-              LogInPage(), // default routes or main route
+          LogInPage.routeName: (context) => LogInPage(),
+          SignUpPage.routeName: (context) => SignUpPage(),
         });
   }
 }
