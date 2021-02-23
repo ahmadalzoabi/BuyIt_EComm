@@ -6,11 +6,13 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final IconData prefixIcon;
   final String type;
+  final Function onSaved;
 
   const CustomTextField(
       {Key key,
       @required this.hintText,
       @required this.prefixIcon,
+      this.onSaved,
       @required this.type})
       : super(key: key);
 
@@ -52,6 +54,7 @@ class CustomTextField extends StatelessWidget {
           return null;
         },
         cursorColor: KMainColor,
+        onSaved: onSaved,
         decoration: InputDecoration(
           prefixIcon: Icon(
             prefixIcon,
