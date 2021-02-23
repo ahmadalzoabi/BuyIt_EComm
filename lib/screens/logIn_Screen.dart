@@ -9,20 +9,64 @@ import '../widgets/logo.dart';
 import '../services/auth.dart';
 import '../widgets/TextField.dart';
 import '../providers/modelHud.dart';
+import '../providers/adminMode.dart';
 import '../screens/Home_Screen.dart';
+import '../screens/Admin_Screen.dart';
 import '../screens/SignUp_Screen.dart';
 
 class LogInPage extends StatelessWidget {
-   static const String routeName = '/LogIn';
-   GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
-   String email;
-   String password;
+  static const String routeName = '/LogIn';
+
+  GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
+  String email;
+  String password;
+
+  Future _validate(BuildContext ctx, BuildContext context, ModelHud modelHud,AdminMode adminMode) async {
+
+    if (_signInKey.currentState.validate()) {
+
+      modelHud.changeIsLoading(true);
+      _signInKey.currentState.save();
+      if (adminMode.isAdmin) {
+        if (password == adminPassword && email == adminEmail) {
+          UserCredential userCredential = await Auth().logIn(email: email, password: password, ctx: ctx);
+          if (userCredential != null) {
+            modelHud.changeIsLoading(false);
+            Navigator.of(context).pushReplacementNamed(AdminPage.routeName);
+          } else {
+            modelHud.changeIsLoading(false);
+          }
+        } else {
+          modelHud.changeIsLoading(false);
+          Scaffold.of(ctx).showSnackBar(
+            SnackBar(
+              content: Text('Something wrong in email or password',
+                  textAlign: TextAlign.center),
+              backgroundColor: Colors.black,
+            ),
+          );
+        }
+      } else {
+        UserCredential userCredential = await Auth().logIn(email: email, password: password, ctx: ctx);
+        if (userCredential != null) {
+          modelHud.changeIsLoading(false);
+          Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+        } else {
+          modelHud.changeIsLoading(false);
+        }
+      }
+
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     final modelHud = Provider.of<ModelHud>(context);
+    final adminMode = Provider.of<AdminMode>(context);
     return Scaffold(
-      backgroundColor: KMainColor,
+      backgroundColor: kMainColor,
       body: SafeArea(
         child: ModalProgressHUD(
           inAsyncCall: modelHud.isLoading,
@@ -54,18 +98,7 @@ class LogInPage extends StatelessWidget {
                     padding: EdgeInsets.all(12),
                     shape: StadiumBorder(),
                     onPressed: () async {
-                      if (_signInKey.currentState.validate()) {
-                         modelHud.changeIsLoading(true);
-                        _signInKey.currentState.save();
-                        UserCredential userCredential = await Auth().logIn(email: email, password: password, ctx: ctx);
-                        if (userCredential != null) {
-                         modelHud.changeIsLoading(false);
-                         Navigator.of(context).pushReplacementNamed(HomePage.routeName);
-                        }
-                        else{
-                          modelHud.changeIsLoading(false);
-                        }
-                      }
+                      await _validate(ctx, context, modelHud, adminMode);
                     },
                     child: Text(
                       'Log In',
@@ -106,7 +139,48 @@ class LogInPage extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: context.width * 0.04,
+                    vertical: context.height * 0.04),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          adminMode.changeIsAdmin(true);
+                        },
+                        child: Text(
+                          'i\'m an admin',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: adminMode.isAdmin
+                                  ? kMainColor
+                                  : Colors.white),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          adminMode.changeIsAdmin(false);
+                        },
+                        child: Text(
+                          'i\'m a user',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: adminMode.isAdmin
+                                  ? Colors.white
+                                  : kMainColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ]),
           ),
         ),

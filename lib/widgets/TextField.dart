@@ -53,14 +53,14 @@ class CustomTextField extends StatelessWidget {
           }
           return null;
         },
-        cursorColor: KMainColor,
+        cursorColor: kMainColor,
         onSaved: onSaved,
         decoration: InputDecoration(
           prefixIcon: Icon(
             prefixIcon,
-            color: KMainColor,
+            color: kMainColor,
           ),
-          fillColor: KFieldColor,
+          fillColor: kFieldColor,
           filled: true,
           hintText: hintText,
           contentPadding: EdgeInsets.all(18),

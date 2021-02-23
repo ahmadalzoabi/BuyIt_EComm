@@ -22,7 +22,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final modelHud = Provider.of<ModelHud>(context);
     return Scaffold(
-      backgroundColor: KMainColor,
+      backgroundColor: kMainColor,
       body: SafeArea(
         child: ModalProgressHUD(
           inAsyncCall: modelHud.isLoading,

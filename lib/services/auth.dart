@@ -20,7 +20,7 @@ class Auth {
       Scaffold.of(ctx).showSnackBar(
         SnackBar(
           content: Text(message, textAlign: TextAlign.center),
-          backgroundColor: Theme.of(ctx).errorColor,
+          backgroundColor: Colors.black,
         ),
       );
     } catch (err) {
@@ -32,7 +32,7 @@ class Auth {
             message,
             textAlign: TextAlign.center,
           ),
-          backgroundColor: Theme.of(ctx).errorColor,
+          backgroundColor: Colors.black,
         ),
       );
     }
@@ -53,7 +53,7 @@ class Auth {
       Scaffold.of(ctx).showSnackBar(
         SnackBar(
           content: Text(message, textAlign: TextAlign.center),
-          backgroundColor: Theme.of(ctx).errorColor,
+          backgroundColor: Colors.black,
         ),
       );
     } catch (err) {
@@ -65,7 +65,7 @@ class Auth {
             message,
             textAlign: TextAlign.center,
           ),
-          backgroundColor: Theme.of(ctx).errorColor,
+          backgroundColor: Colors.black,
         ),
       );
     }
