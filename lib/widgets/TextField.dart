@@ -10,10 +10,10 @@ class CustomTextField extends StatelessWidget {
 
   const CustomTextField(
       {Key key,
-      @required this.hintText,
-      @required this.prefixIcon,
+      this.hintText,
+      this.prefixIcon,
       this.onSaved,
-      @required this.type})
+      this.type})
       : super(key: key);
 
   @override
@@ -50,11 +50,18 @@ class CustomTextField extends StatelessWidget {
                   return '$type is not correct';
               }
               break;
+            case 'AdminAdd':
+              {
+                if (val.trim().isEmpty)
+                  return 'Field is empty';
+              }
+              break;  
           }
           return null;
         },
         cursorColor: kMainColor,
         onSaved: onSaved,
+        keyboardType: hintText == 'Product Price' ? TextInputType.number : TextInputType.text ,
         decoration: InputDecoration(
           prefixIcon: Icon(
             prefixIcon,

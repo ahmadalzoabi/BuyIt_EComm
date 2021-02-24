@@ -9,11 +9,11 @@ import '../widgets/logo.dart';
 import '../services/auth.dart';
 import '../widgets/TextField.dart';
 import '../providers/modelHud.dart';
-import '../screens/Home_Screen.dart';
+import '../user/Home_Screen.dart';
 import '../screens/logIn_Screen.dart';
 
-class SignUpPage extends StatelessWidget {
-  static const String routeName = '/SignUp';
+class SignUpScreen extends StatelessWidget {
+  static const String routeName = '/SignUpScreen';
   GlobalKey<FormState> _signUpKey = GlobalKey<FormState>();
   String email;
   String password;
@@ -65,7 +65,7 @@ class SignUpPage extends StatelessWidget {
                         UserCredential userCredential = await Auth().signUp(email: email, password: password, ctx: ctx,);
                         if (userCredential != null) {
                          modelHud.changeIsLoading(false);
-                         Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+                         Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
                         }
                         else{
                           modelHud.changeIsLoading(false);
@@ -84,7 +84,7 @@ class SignUpPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15.0),
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed(LogInPage.routeName);
+                    Navigator.of(context).pushNamed(LogInScreen.routeName);
                   },
                   child: RichText(
                     textAlign: TextAlign.center,

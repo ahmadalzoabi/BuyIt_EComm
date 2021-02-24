@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'user/Home_Screen.dart';
+import 'admin/Admin_Screen.dart';
+import './admin/addProduct.dart';
+import './admin/editProduct.dart';
 import './providers/modelHud.dart';
+import './admin/OrdersScreen.dart';
 import './providers/adminMode.dart';
-import './screens/Home_Screen.dart';
+import './admin/manageProducts.dart';
 import './screens/logIn_Screen.dart';
-import './screens/Admin_Screen.dart';
 import './screens/SignUp_Screen.dart';
 
 Future<void> main() async {
@@ -35,12 +39,15 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          initialRoute: LogInPage.routeName, // default routes or main route
+          initialRoute: LogInScreen.routeName, // default routes or main route
           routes: <String, WidgetBuilder>{
-            LogInPage.routeName: (context) => LogInPage(),
-            SignUpPage.routeName: (context) => SignUpPage(),
-            HomePage.routeName: (context) => HomePage(),
-            AdminPage.routeName: (context) => AdminPage(),
+            LogInScreen.routeName: (context) => LogInScreen(),
+            SignUpScreen.routeName: (context) => SignUpScreen(),
+            HomeScreen.routeName: (context) => HomeScreen(),
+            AdminScreen.routeName: (context) => AdminScreen(),
+            AddProduct.routeName: (context) => AddProduct(),
+            ManageProducts.routeName: (context) => ManageProducts(),
+            OrdersScreen.routeName: (context) => OrdersScreen(),
           }),
     );
   }

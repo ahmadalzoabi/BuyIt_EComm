@@ -7,32 +7,31 @@ import '../constants.dart';
 import '../extensions.dart';
 import '../widgets/logo.dart';
 import '../services/auth.dart';
+import '../user/Home_Screen.dart';
 import '../widgets/TextField.dart';
 import '../providers/modelHud.dart';
+import '../admin/Admin_Screen.dart';
 import '../providers/adminMode.dart';
-import '../screens/Home_Screen.dart';
-import '../screens/Admin_Screen.dart';
 import '../screens/SignUp_Screen.dart';
 
-class LogInPage extends StatelessWidget {
-  static const String routeName = '/LogIn';
+class LogInScreen extends StatelessWidget {
+  static const String routeName = '/LogInScreen';
 
   GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
   String email;
   String password;
 
   Future _validate(BuildContext ctx, BuildContext context, ModelHud modelHud,AdminMode adminMode) async {
-
     if (_signInKey.currentState.validate()) {
-
       modelHud.changeIsLoading(true);
       _signInKey.currentState.save();
       if (adminMode.isAdmin) {
         if (password == adminPassword && email == adminEmail) {
-          UserCredential userCredential = await Auth().logIn(email: email, password: password, ctx: ctx);
+          UserCredential userCredential =
+              await Auth().logIn(email: email, password: password, ctx: ctx);
           if (userCredential != null) {
             modelHud.changeIsLoading(false);
-            Navigator.of(context).pushReplacementNamed(AdminPage.routeName);
+            Navigator.of(context).pushReplacementNamed(AdminScreen.routeName);
           } else {
             modelHud.changeIsLoading(false);
           }
@@ -40,26 +39,24 @@ class LogInPage extends StatelessWidget {
           modelHud.changeIsLoading(false);
           Scaffold.of(ctx).showSnackBar(
             SnackBar(
-              content: Text('Something wrong in email or password',
+              content: Text('Something wrong in your email or password',
                   textAlign: TextAlign.center),
               backgroundColor: Colors.black,
             ),
           );
         }
       } else {
-        UserCredential userCredential = await Auth().logIn(email: email, password: password, ctx: ctx);
+        UserCredential userCredential =
+            await Auth().logIn(email: email, password: password, ctx: ctx);
         if (userCredential != null) {
           modelHud.changeIsLoading(false);
-          Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+          Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
         } else {
           modelHud.changeIsLoading(false);
         }
       }
-
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +109,7 @@ class LogInPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15.0),
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).pushNamed(SignUpPage.routeName);
+                    Navigator.of(context).pushNamed(SignUpScreen.routeName);
                   },
                   child: RichText(
                     textAlign: TextAlign.center,
