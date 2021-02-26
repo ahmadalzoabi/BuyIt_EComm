@@ -4,7 +4,7 @@ import '../constants.dart';
 import '../extensions.dart';
 import '../admin/addProduct.dart';
 import '../admin/OrdersScreen.dart';
-import '../admin/manageProducts.dart';
+import '../admin/ManageProduct.dart';
 
 class AdminScreen extends StatelessWidget {
   static const String routeName = '/AdminScreen';
@@ -35,7 +35,7 @@ class AdminScreen extends StatelessWidget {
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.pushNamed(context, ManageProducts.routeName);
+                Navigator.pushNamed(context, ManageProduct.routeName);
               },
               child:
                   Text('Edit Product', style: TextStyle(color: Colors.white)),

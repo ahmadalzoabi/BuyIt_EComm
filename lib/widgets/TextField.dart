@@ -9,11 +9,7 @@ class CustomTextField extends StatelessWidget {
   final Function onSaved;
 
   const CustomTextField(
-      {Key key,
-      this.hintText,
-      this.prefixIcon,
-      this.onSaved,
-      this.type})
+      {Key key, this.hintText, this.prefixIcon, this.onSaved, this.type})
       : super(key: key);
 
   @override
@@ -52,16 +48,17 @@ class CustomTextField extends StatelessWidget {
               break;
             case 'AdminAdd':
               {
-                if (val.trim().isEmpty)
-                  return 'Field is empty';
+                if (val.trim().isEmpty) return 'Field is empty';
               }
-              break;  
+              break;
           }
           return null;
         },
         cursorColor: kMainColor,
         onSaved: onSaved,
-        keyboardType: hintText == 'Product Price' ? TextInputType.number : TextInputType.text ,
+        keyboardType: hintText == 'Product Price'
+            ? TextInputType.number
+            : TextInputType.text,
         decoration: InputDecoration(
           prefixIcon: Icon(
             prefixIcon,

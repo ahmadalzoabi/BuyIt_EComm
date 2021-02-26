@@ -32,90 +32,94 @@ class _AddProductState extends State<AddProduct> {
       body: SafeArea(
         child: Form(
           key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: context.height * 0.13),
-                CustomTextField(
-                  hintText: 'Product Name',
-                  type: 'AdminAdd',
-                  onSaved: (value) {
-                    _name = value;
-                  },
-                ),
-                CustomTextField(
-                  type: 'AdminAdd',
-                  onSaved: (value) {
-                    _price = value;
-                  },
-                  hintText: 'Product Price',
-                ),
-                CustomTextField(
-                  type: 'AdminAdd',
-                  onSaved: (value) {
-                    _description = value;
-                  },
-                  hintText: 'Product Description',
-                ),
-                CustomTextField(
-                  type: 'AdminAdd',
-                  onSaved: (value) {
-                    _category = value;
-                  },
-                  hintText: 'Product Category',
-                ),
-                CustomTextField(
-                  type: 'AdminAdd',
-                  onSaved: (value) {
-                    _imageLocation = value;
-                  },
-                  hintText: 'Product Location',
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Builder(
-                    builder: (ctx) => FlatButton(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                      shape: StadiumBorder(),
-                      color: Colors.green,
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          _formKey.currentState.save();
-                          // _formKey.currentState.reset();
-                          _store.addProduct(
-                            Product(
-                                pName: _name,
-                                pPrice: _price,
-                                pDescription: _description,
-                                pLocation: _imageLocation,
-                                pCategory: _category),
-                          );
-                          setState(() {
-                            isLoading = false;
-                          });
-                          Scaffold.of(ctx).showSnackBar(
-                            SnackBar(
-                              content: Text('Data Added',
-                                  textAlign: TextAlign.center),
-                              backgroundColor: Colors.black,
-                            ),
-                          );
-                        }
-                      },
-                      child: isLoading
-                          ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.red)))
-                          : const Text('Add Product',
-                              style: TextStyle(color: Colors.white)),
-                    ),
-                  ),
+          child: isLoading
+              ? Center(
+                  child: CircularProgressIndicator(
+                      valueColor:
+                          new AlwaysStoppedAnimation<Color>(Colors.green)),
                 )
-              ],
-            ),
-          ),
+              : SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: context.height * 0.13),
+                      CustomTextField(
+                        hintText: 'Product Name',
+                        type: 'AdminAdd',
+                        onSaved: (value) {
+                          _name = value;
+                        },
+                      ),
+                      CustomTextField(
+                        type: 'AdminAdd',
+                        onSaved: (value) {
+                          _price = value;
+                        },
+                        hintText: 'Product Price',
+                      ),
+                      CustomTextField(
+                        type: 'AdminAdd',
+                        onSaved: (value) {
+                          _description = value;
+                        },
+                        hintText: 'Product Description',
+                      ),
+                      CustomTextField(
+                        type: 'AdminAdd',
+                        onSaved: (value) {
+                          _category = value;
+                        },
+                        hintText: 'Product Category',
+                      ),
+                      CustomTextField(
+                        type: 'AdminAdd',
+                        onSaved: (value) {
+                          _imageLocation = value;
+                        },
+                        hintText: 'Product Location',
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Builder(
+                          builder: (ctx) => FlatButton(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 80, vertical: 12),
+                            shape: StadiumBorder(),
+                            color: Colors.green,
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                _formKey.currentState.save();
+                                // _formKey.currentState.reset();
+                                _store.addProduct(
+                                  Product(
+                                      pName: _name,
+                                      pPrice: _price,
+                                      pDescription: _description,
+                                      pLocation: _imageLocation,
+                                      pCategory: _category),
+                                );
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                Scaffold.of(ctx).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Data Added',
+                                        textAlign: TextAlign.center),
+                                    backgroundColor: Colors.black,
+                                  ),
+                                );
+                              }
+                            },
+                            child: const Text('Add Product',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
         ),
       ),
     );

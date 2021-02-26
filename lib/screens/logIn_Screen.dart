@@ -21,7 +21,8 @@ class LogInScreen extends StatelessWidget {
   String email;
   String password;
 
-  Future _validate(BuildContext ctx, BuildContext context, ModelHud modelHud,AdminMode adminMode) async {
+  Future _validate(BuildContext ctx, BuildContext context, ModelHud modelHud,
+      AdminMode adminMode) async {
     if (_signInKey.currentState.validate()) {
       modelHud.changeIsLoading(true);
       _signInKey.currentState.save();

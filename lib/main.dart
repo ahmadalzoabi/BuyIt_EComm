@@ -5,11 +5,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'user/Home_Screen.dart';
 import 'admin/Admin_Screen.dart';
 import './admin/addProduct.dart';
-import './admin/editProduct.dart';
+import './admin/EditProduct.dart';
 import './providers/modelHud.dart';
 import './admin/OrdersScreen.dart';
+import './admin/ManageProduct.dart';
 import './providers/adminMode.dart';
-import './admin/manageProducts.dart';
 import './screens/logIn_Screen.dart';
 import './screens/SignUp_Screen.dart';
 
@@ -46,8 +46,9 @@ class MyApp extends StatelessWidget {
             HomeScreen.routeName: (context) => HomeScreen(),
             AdminScreen.routeName: (context) => AdminScreen(),
             AddProduct.routeName: (context) => AddProduct(),
-            ManageProducts.routeName: (context) => ManageProducts(),
+            EditProduct.routeName: (context) => EditProduct(),
             OrdersScreen.routeName: (context) => OrdersScreen(),
+            ManageProduct.routeName: (context) => ManageProduct(),
           }),
     );
   }

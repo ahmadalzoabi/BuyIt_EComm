@@ -7,9 +7,9 @@ import '../constants.dart';
 import '../extensions.dart';
 import '../widgets/logo.dart';
 import '../services/auth.dart';
+import '../user/Home_Screen.dart';
 import '../widgets/TextField.dart';
 import '../providers/modelHud.dart';
-import '../user/Home_Screen.dart';
 import '../screens/logIn_Screen.dart';
 
 class SignUpScreen extends StatelessWidget {
