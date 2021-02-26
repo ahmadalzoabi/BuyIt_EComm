@@ -34,28 +34,16 @@ class Store {
   }
 
   Stream<List<Product>> loadProducts() {
-    return _firestore.orderBy(kProductName,descending: false).snapshots().map(_productListFromSnapshot);
+    return _firestore.orderBy(kProductName, descending: false) .snapshots().map(_productListFromSnapshot);
   }
 
-  //load all products from fireBase by future
-  // Future<List<Product>> loadProducts() async {
-  //   final snapShot = await _firestore.get();
-  //   List<Product> products = [];
-  //   for (var doc in snapShot.docs) {
-  //     Map<String, dynamic> data = doc.data();
-  //     products.add(Product(
-  //         pName: data[kProductName],
-  //         pCategory: data[kProductCategory],
-  //         pPrice: data[kProductPrice],
-  //         pDescription: data[kProductDescription],
-  //         pLocation: data[kProductLocation],
-  //         pId: doc.id));
-  //   }
-  //   return products;
-  // }
+  //delete product from fireBase
+  deleteProduct({documentId}) {
+    _firestore.doc(documentId).delete();
+  }
 
   //edit product in fireBase
-  editProduct(data, documentId) {
+  editProduct({data, documentId}) {
     _firestore.doc(documentId).update(data);
   }
 }

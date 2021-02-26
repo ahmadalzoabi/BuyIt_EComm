@@ -7,12 +7,12 @@ import '../constants.dart';
 import '../extensions.dart';
 import '../widgets/logo.dart';
 import '../services/auth.dart';
-import '../user/Home_Screen.dart';
 import '../widgets/TextField.dart';
 import '../providers/modelHud.dart';
-import '../admin/Admin_Screen.dart';
 import '../providers/adminMode.dart';
 import '../screens/SignUp_Screen.dart';
+import '../screens/user/Home_Screen.dart';
+import '../screens/admin/Admin_Screen.dart';
 
 class LogInScreen extends StatelessWidget {
   static const String routeName = '/LogInScreen';

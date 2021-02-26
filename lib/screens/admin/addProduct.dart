@@ -1,10 +1,10 @@
 import 'package:buy_it/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../extensions.dart';
-import '../models/product.dart';
-import '../services/store.dart';
-import '../widgets/TextField.dart';
+import '../../extensions.dart';
+import '../../models/product.dart';
+import '../../services/store.dart';
+import '../../widgets/TextField.dart';
 
 class AddProduct extends StatefulWidget {
   static const String routeName = '/AddProduct';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../extensions.dart';
+import '../../constants.dart';
+import '../../extensions.dart';
 import '../admin/addProduct.dart';
 import '../admin/OrdersScreen.dart';
 import '../admin/ManageProduct.dart';
@@ -38,7 +38,7 @@ class AdminScreen extends StatelessWidget {
                 Navigator.pushNamed(context, ManageProduct.routeName);
               },
               child:
-                  Text('Edit Product', style: TextStyle(color: Colors.white)),
+                  Text('Manage Product', style: TextStyle(color: Colors.white)),
               color: Colors.red,
               shape: StadiumBorder(),
             ),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../extensions.dart';
-import '../models/product.dart';
-import '../services/store.dart';
-import '../widgets/gridItem.dart';
-import '../widgets/popUpMenuTap.dart';
+import '../../constants.dart';
+import '../../extensions.dart';
+import '../../services/store.dart';
+import '../admin/EditProduct.dart';
+import '../../models/product.dart';
+import '../../widgets/gridItem.dart';
+import '../../widgets/popUpMenuTap.dart';
 
 class ManageProduct extends StatefulWidget {
   static const String routeName = '/ManageProduct';
@@ -31,7 +32,7 @@ class _ManageProductState extends State<ManageProduct> {
         builder: (context, AsyncSnapshot<List<Product>> snapShot) {
           if (snapShot.hasData) {
             return GridView.builder(
-              padding: const EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(4.0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 3 / 3,
@@ -54,7 +55,11 @@ class _ManageProductState extends State<ManageProduct> {
                             dx, dy, context.width - dx, context.height - dy),
                         items: [
                           MyPopupMenuItem(
-                            value: 'Edit',
+                            onClick: () {
+                              Navigator.of(context).pushNamed(
+                                  EditProduct.routeName,
+                                  arguments: snapShot.data[index]);
+                            },
                             child: Text(
                               'Edit',
                               style: TextStyle(
@@ -63,7 +68,10 @@ class _ManageProductState extends State<ManageProduct> {
                             ),
                           ),
                           MyPopupMenuItem(
-                            value: 'Delete',
+                            onClick: () {
+                              _store.deleteProduct(
+                                  documentId: snapShot.data[index].pId);
+                            },
                             child: Text(
                               'Delete',
                               style: TextStyle(
@@ -78,6 +86,14 @@ class _ManageProductState extends State<ManageProduct> {
                     child: GridItem(
                       image: snapShot.data[index].pLocation,
                       name: snapShot.data[index].pName,
+                      delete: () {
+                        _store.deleteProduct(
+                            documentId: snapShot.data[index].pId);
+                      },
+                      edit: () {
+                        Navigator.of(context).pushNamed(EditProduct.routeName,
+                            arguments: snapShot.data[index]);
+                      },
                     ),
                   ),
                 );
@@ -91,5 +107,3 @@ class _ManageProductState extends State<ManageProduct> {
     );
   }
 }
-
-

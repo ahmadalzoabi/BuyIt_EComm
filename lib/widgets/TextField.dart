@@ -7,9 +7,10 @@ class CustomTextField extends StatelessWidget {
   final IconData prefixIcon;
   final String type;
   final Function onSaved;
+  final String initValue;
 
   const CustomTextField(
-      {Key key, this.hintText, this.prefixIcon, this.onSaved, this.type})
+      {Key key, this.hintText, this.prefixIcon, this.onSaved, this.type,this.initValue})
       : super(key: key);
 
   @override
@@ -17,6 +18,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 15),
       child: TextFormField(
+        initialValue: initValue,
         obscureText: type == 'Password' ? true : false,
         validator: (val) {
           switch (type) {
@@ -51,6 +53,11 @@ class CustomTextField extends StatelessWidget {
                 if (val.trim().isEmpty) return 'Field is empty';
               }
               break;
+            case 'AdminEdit':
+              {
+                if (val.trim().isEmpty) return 'Field is empty';
+              }
+              break;  
           }
           return null;
         },

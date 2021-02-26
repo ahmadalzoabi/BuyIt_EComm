@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../admin/addProduct.dart';
-import '../admin/EditProduct.dart';
-
 class MyPopupMenuItem<T> extends PopupMenuItem<T> {
   final Widget child;
-  final T value;
-  MyPopupMenuItem({@required this.child, @required this.value})
-      : super(child: child, value: value);
+  final Function onClick;
+  MyPopupMenuItem({@required this.child, @required this.onClick})
+      : super(child: child);
 
   @override
   PopupMenuItemState<T, PopupMenuItem<T>> createState() {
@@ -20,8 +17,6 @@ class MyPopupMenuItemState<T, PopupMenuItem>
   @override
   void handleTap() {
     Navigator.pop<T>(context);
-    widget.value == 'Edit'
-        ? Navigator.pushNamed(context, AddProduct.routeName)
-        : Navigator.pushNamed(context, EditProduct.routeName); // EXAMPLE
+    widget.onClick();
   }
 }
