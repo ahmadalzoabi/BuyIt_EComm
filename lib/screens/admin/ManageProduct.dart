@@ -29,7 +29,7 @@ class _ManageProductState extends State<ManageProduct> {
       backgroundColor: kMainColor,
       body: StreamBuilder<List<Product>>(
         stream: _store.loadProducts(),
-        builder: (context, AsyncSnapshot<List<Product>> snapShot) {
+        builder: (BuildContext context, AsyncSnapshot<List<Product>> snapShot) {
           if (snapShot.hasData) {
             return GridView.builder(
               padding: const EdgeInsets.all(4.0),
@@ -86,6 +86,7 @@ class _ManageProductState extends State<ManageProduct> {
                     child: GridItem(
                       image: snapShot.data[index].pLocation,
                       name: snapShot.data[index].pName,
+                      price: null,
                       delete: () {
                         _store.deleteProduct(
                             documentId: snapShot.data[index].pId);

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 // colors
 const kMainColor = Color(0xffffc12f);
 const kFieldColor = Color(0xffffe6fc);
+const kUnActiveColor = Color(0xFFFFFFFF); 
+
 
 //validation for inputs logIn and signUp
 Pattern patternEmail =
@@ -14,9 +16,11 @@ Pattern patternPass =
     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
 RegExp regExpPass = RegExp(patternPass);
 
+
 // admin auth
 String adminPassword = 'admin1Buy*';
 String adminEmail = 'admin@gmail.com';
+
 
 // product properties
 const kProductsCollection = 'Products';
@@ -25,3 +29,19 @@ const kProductDescription = 'Description';
 const kProductLocation = 'Location';
 const kProductCategory = 'Category';
 const kProductPrice = 'Price';
+
+
+// shop constant
+const kJackets = 'jackets';
+const kTrousers = 'trousers';
+const kTshirts = 't-shirts';
+const kShoes = 'shoes';
+const kOrders = 'Orders';
+const kOrderDetails = 'OrderDetails';
+const kTotallPrice = 'TotallPrice';
+const kAddress = 'Address';
+const kProductQuantity = 'Quantity';
+
+
+// user constant
+const kKeepMeLoggedIn = 'KeepMeLoggedIn';

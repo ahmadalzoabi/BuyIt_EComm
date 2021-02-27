@@ -7,6 +7,7 @@ import './providers/adminMode.dart';
 import './screens/logIn_Screen.dart';
 import './screens/SignUp_Screen.dart';
 import './screens/user/Home_Screen.dart';
+import './screens/user/productInfo.dart';
 import './screens/admin/addProduct.dart';
 import './screens/admin/EditProduct.dart';
 import './screens/admin/OrdersScreen.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
             EditProduct.routeName: (context) => EditProduct(),
             OrdersScreen.routeName: (context) => OrdersScreen(),
             ManageProduct.routeName: (context) => ManageProduct(),
+            ProductInfo.routeName: (context) => ProductInfo(),
           }),
     );
   }

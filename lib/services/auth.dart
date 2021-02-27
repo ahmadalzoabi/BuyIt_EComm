@@ -8,8 +8,7 @@ class Auth {
   Future signUp({String email, String password, BuildContext ctx}) async {
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      print(userCredential);
+          email: email.trim(), password: password.trim());
       return userCredential;
     } on FirebaseAuthException catch (err) {
       var message = 'An error occurred, pelase check your credentials!';
@@ -42,7 +41,7 @@ class Auth {
   Future logIn({String email, String password, BuildContext ctx}) async {
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+          email: email.trim(), password: password.trim());
       return userCredential;
     } on FirebaseAuthException catch (err) {
       var message = 'An error occurred, pelase check your credentials!';
