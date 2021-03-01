@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/product.dart';
 import '../widgets/gridItem.dart';
+import '../providers/CartItem.dart';
 import '../screens/user/productInfo.dart';
 
 Widget productView(Stream store) {
@@ -25,14 +27,17 @@ Widget productView(Stream store) {
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: GridItem(
-                image: snapShot.data[index].pLocation,
-                name: snapShot.data[index].pName,
-                price: snapShot.data[index].pPrice,
-                cart: () {
-                  // Navigator.of(context).pushNamed(ProductInfo.routeName,
-                  //     arguments: snapShot.data[index]);
-                },
+              child: Consumer<CartItem>(
+                builder: (context, cartItem, _) => Builder(
+                  builder: (ctx) => GridItem(
+                    image: snapShot.data[index].pLocation,
+                    name: snapShot.data[index].pName,
+                    price: snapShot.data[index].pPrice,
+                    add: () {
+                      cartItem.addItem(snapShot.data[index], ctx);
+                    },
+                  ),
+                ),
               ),
             ),
           ),

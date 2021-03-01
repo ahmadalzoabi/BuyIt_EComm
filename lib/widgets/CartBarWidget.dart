@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../extensions.dart';
 import '../widgets/badge.dart';
+import '../providers/CartItem.dart';
+import '../screens/user/cartScreen.dart';
 
 class CartBarWidget extends StatelessWidget {
   const CartBarWidget({Key key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    CartItem cartItem = Provider.of<CartItem>(context);
     return Material(
       color: Colors.black,
       child: Padding(
@@ -26,7 +30,7 @@ class CartBarWidget extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  //   Navigator.pushNamed(context, CartScreen.id);
+                     Navigator.pushNamed(context, CartScreen.routeName);
                 },
                 child: Badge(
                   color: Colors.white,
@@ -35,7 +39,7 @@ class CartBarWidget extends StatelessWidget {
                     color: Colors.blue,
                     size: 29,
                   ),
-                  value: 0.toString(),
+                  value: cartItem.itemCount.toString(),
                 ),
               )
             ],

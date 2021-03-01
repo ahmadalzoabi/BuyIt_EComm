@@ -8,9 +8,9 @@ class GridItem extends StatelessWidget {
   final String price;
   final Function edit;
   final Function delete;
-  final Function cart;
+  final Function add;
   const GridItem(
-      {Key key, this.image, this.name, this.price, this.delete, this.edit, this.cart})
+      {Key key, this.image, this.name, this.price, this.delete, this.edit, this.add})
       : super(key: key);
 
   @override
@@ -54,14 +54,14 @@ class GridItem extends StatelessWidget {
                 ],
               )
             : IconButton(
-                    tooltip: 'cart',
+                    tooltip: 'add',
                     padding: EdgeInsets.all(0),
                     icon: Icon(
-                      Icons.shopping_cart,
+                      Icons.add_circle,
                       color: Colors.blue,
                       size: 20,
                     ),
-                    onPressed: cart,
+                    onPressed: add,
                   ),
       ),
     );

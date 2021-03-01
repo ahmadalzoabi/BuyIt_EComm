@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import './providers/CartItem.dart';
 import './providers/modelHud.dart';
 import './providers/adminMode.dart';
 import './screens/logIn_Screen.dart';
 import './screens/SignUp_Screen.dart';
+import './screens/user/cartScreen.dart';
 import './screens/user/Home_Screen.dart';
 import './screens/user/productInfo.dart';
 import './screens/admin/addProduct.dart';
@@ -31,7 +33,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<AdminMode>(
           create: (_) => AdminMode(),
-        )
+        ),
+        ChangeNotifierProvider<CartItem>(
+          create: (_) => CartItem(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -51,6 +56,7 @@ class MyApp extends StatelessWidget {
             OrdersScreen.routeName: (context) => OrdersScreen(),
             ManageProduct.routeName: (context) => ManageProduct(),
             ProductInfo.routeName: (context) => ProductInfo(),
+            CartScreen.routeName: (context) => CartScreen(),
           }),
     );
   }

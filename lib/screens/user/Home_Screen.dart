@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 BottomNavigationBarItem(
                     backgroundColor: Colors.black,
                     label: 'Home',
-                    icon: Icon(Icons.person)),
+                    icon: Icon(Icons.home)),
                 BottomNavigationBarItem(
                     backgroundColor: Colors.black,
                     label: 'Favourite',
