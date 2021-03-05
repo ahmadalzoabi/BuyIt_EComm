@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../constants.dart';
 import '../extensions.dart';
@@ -15,12 +15,12 @@ import '../screens/user/Home_Screen.dart';
 class SignUpScreen extends StatelessWidget {
   static const String routeName = '/SignUpScreen';
   GlobalKey<FormState> _signUpKey = GlobalKey<FormState>();
-  String email;
-  String password;
+  late String email;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
-    final modelHud = Provider.of<ModelHud>(context);
+    final  modelHud = Provider.of<ModelHud>(context);
     return Scaffold(
       backgroundColor: kMainColor,
       body: SafeArea(
@@ -54,29 +54,34 @@ class SignUpScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: context.width * 0.3, vertical: 15),
-                child: Builder(
-                  builder: (ctx) => FlatButton(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
                     padding: EdgeInsets.all(12),
                     shape: StadiumBorder(),
-                    onPressed: () async {
-                      if (_signUpKey.currentState.validate()) {
-                        modelHud.changeIsLoading(true); 
-                        _signUpKey.currentState.save();
-                        UserCredential userCredential = await Auth().signUp(email: email, password: password, ctx: ctx,);
-                        if (userCredential != null) {
-                         modelHud.changeIsLoading(false);
-                         Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
-                        }
-                        else{
-                          modelHud.changeIsLoading(false);
-                        }
+                  ),
+                  onPressed: () async {
+                    if (_signUpKey.currentState!.validate()) {
+                      modelHud.changeIsLoading(true);
+                      _signUpKey.currentState!.save();
+                      UserCredential userCredential = await (Auth().signUp(
+                        email: email,
+                        password: password,
+                        ctx: context,
+                        modelHud: modelHud
+                      ));
+                      if (userCredential != null) {
+                        modelHud.changeIsLoading(false);
+                        Navigator.of(context)
+                            .pushReplacementNamed(HomeScreen.routeName);
+                      } else {
+                        modelHud.changeIsLoading(false);
                       }
-                    },
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: Colors.black,
+                    }
+                  },
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -101,7 +106,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: 'Sign UP',
+                          text: 'Sign IN',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,

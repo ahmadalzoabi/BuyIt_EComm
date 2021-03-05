@@ -25,29 +25,35 @@ class AdminScreen extends StatelessWidget {
             SizedBox(
               width: context.width * 1,
             ),
-            RaisedButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  primary: Colors.green,
+                  onPrimary: Colors.white),
               onPressed: () {
                 Navigator.pushNamed(context, AddProduct.routeName);
               },
-              color: Colors.green,
               child: Text('Add Product', style: TextStyle(color: Colors.white)),
-              shape: StadiumBorder(),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, ManageProduct.routeName);
               },
               child:
                   Text('Manage Product', style: TextStyle(color: Colors.white)),
-              color: Colors.red,
-              shape: StadiumBorder(),
+              style: ElevatedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  primary: Colors.red,
+                  onPrimary: Colors.white),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, OrdersScreen.routeName);
               },
-              shape: StadiumBorder(),
-              color: Colors.blue,
+              style: ElevatedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  primary: Colors.blue,
+                  onPrimary: Colors.white),
               child: Text('View orders', style: TextStyle(color: Colors.white)),
             )
           ],

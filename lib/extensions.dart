@@ -14,12 +14,12 @@ extension StringExtension on String {
 // .................
 
 class ScreenSize {
-  static double screenHeight;
-  static double screenWidth;
-  static double safeAreaVertical;
-  static double safeAreaHorizontal;
-  static double safeBlockHorizontal;
-  static double safeBlockVerticalWithAppBar;
+  static late double screenHeight;
+  static late double screenWidth;
+  static late double safeAreaVertical;
+  static late double safeAreaHorizontal;
+  static double? safeBlockHorizontal;
+  static late double safeBlockVerticalWithAppBar;
 
   void init(BuildContext context) {
     screenHeight = context.height;

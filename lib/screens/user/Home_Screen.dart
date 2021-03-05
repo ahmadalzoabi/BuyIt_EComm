@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final User userAuth = FirebaseAuth.instance.currentUser;
+  final User? userAuth = FirebaseAuth.instance.currentUser;
   int _tabBarIndex = 0;
   int _bottomBarIndex = 0;
   final _store = Store();
@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      
       children: <Widget>[
         DefaultTabController(
           length: 4,
@@ -113,10 +114,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             body: TabBarView(
               children: <Widget>[
-                productView(_store.loadJacketProducts()),
-                productView(_store.loadTrousersProducts()),
-                productView(_store.loadTshirtsProducts()),
-                productView(_store.loadShoesProducts()),
+                 productView(_store.loadJacketProducts()),
+                 productView(_store.loadTrousersProducts()),
+                 productView(_store.loadTshirtsProducts()),
+                 productView(_store.loadShoesProducts()),
               ],
             ),
           ),

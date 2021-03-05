@@ -4,7 +4,7 @@ import '../extensions.dart';
 
 class LogoWidget extends StatelessWidget {
   const LogoWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

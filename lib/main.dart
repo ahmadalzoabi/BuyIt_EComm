@@ -14,6 +14,7 @@ import './screens/admin/addProduct.dart';
 import './screens/admin/EditProduct.dart';
 import './screens/admin/OrdersScreen.dart';
 import './screens/admin/Admin_Screen.dart';
+import './screens/admin/order_details.dart';
 import './screens/admin/ManageProduct.dart';
 
 Future<void> main() async {
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
             ManageProduct.routeName: (context) => ManageProduct(),
             ProductInfo.routeName: (context) => ProductInfo(),
             CartScreen.routeName: (context) => CartScreen(),
+            OrderDetails.routeName: (context) => OrderDetails(),
           }),
     );
   }

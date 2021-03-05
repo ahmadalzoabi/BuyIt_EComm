@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../constants.dart';
 import '../extensions.dart';
@@ -18,18 +18,18 @@ class LogInScreen extends StatelessWidget {
   static const String routeName = '/LogInScreen';
 
   GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
-  String email;
-  String password;
+  String? email;
+  String? password;
 
-  Future _validate(BuildContext ctx, BuildContext context, ModelHud modelHud,
-      AdminMode adminMode) async {
-    if (_signInKey.currentState.validate()) {
+  Future _validate(
+      BuildContext context, ModelHud modelHud, AdminMode adminMode) async {
+    if (_signInKey.currentState!.validate()) {
       modelHud.changeIsLoading(true);
-      _signInKey.currentState.save();
+      _signInKey.currentState!.save();
       if (adminMode.isAdmin) {
         if (password == adminPassword && email == adminEmail) {
-          UserCredential userCredential =
-              await Auth().logIn(email: email, password: password, ctx: ctx);
+          UserCredential userCredential = await (Auth()
+              .logIn(email: email!, password: password!, ctx: context,modelHud: modelHud) );
           if (userCredential != null) {
             modelHud.changeIsLoading(false);
             Navigator.of(context).pushReplacementNamed(AdminScreen.routeName);
@@ -38,7 +38,7 @@ class LogInScreen extends StatelessWidget {
           }
         } else {
           modelHud.changeIsLoading(false);
-          Scaffold.of(ctx).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Something wrong in your email or password',
                   textAlign: TextAlign.center),
@@ -48,7 +48,7 @@ class LogInScreen extends StatelessWidget {
         }
       } else {
         UserCredential userCredential =
-            await Auth().logIn(email: email, password: password, ctx: ctx);
+            await (Auth().logIn(email: email!, password: password!, ctx: context,modelHud: modelHud) );
         if (userCredential != null) {
           modelHud.changeIsLoading(false);
           Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
@@ -91,18 +91,18 @@ class LogInScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: context.width * 0.3, vertical: 15),
-                child: Builder(
-                  builder: (ctx) => FlatButton(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
                     padding: EdgeInsets.all(12),
                     shape: StadiumBorder(),
-                    onPressed: () async {
-                      await _validate(ctx, context, modelHud, adminMode);
-                    },
-                    child: Text(
-                      'Log In',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: Colors.black,
+                  ),
+                  onPressed: () async {
+                    await _validate(context, modelHud, adminMode);
+                  },
+                  child: Text(
+                    'Log In',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -127,7 +127,7 @@ class LogInScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: 'Sign In',
+                          text: 'Sign UP',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,

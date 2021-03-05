@@ -14,14 +14,14 @@ class EditProduct extends StatefulWidget {
 }
 
 class _EditProductState extends State<EditProduct> {
-  String _name, _price, _description, _category, _imageLocation;
+  String? _name, _price, _description, _category, _imageLocation;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isLoading = false;
   final _store = Store();
 
   @override
   Widget build(BuildContext context) {
-    Product product = ModalRoute.of(context).settings.arguments;
+    Product product = ModalRoute.of(context)!.settings.arguments as Product;
     print(product.pId);
     return Scaffold(
       backgroundColor: kMainColor,
@@ -79,42 +79,42 @@ class _EditProductState extends State<EditProduct> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
-              child: Builder(
-                builder: (ctx) => FlatButton(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.red,
                   padding: EdgeInsets.symmetric(horizontal: 80, vertical: 12),
                   shape: StadiumBorder(),
-                  color: Colors.red,
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      _formKey.currentState.save();
-                      _store.editProduct(data: {
-                        kProductName: _name,
-                        kProductLocation: _imageLocation,
-                        kProductCategory: _category,
-                        kProductDescription: _description,
-                        kProductPrice: _price
-                      }, documentId: product.pId);
-                      setState(() {
-                        isLoading = false;
-                      });
-                      Scaffold.of(ctx).showSnackBar(
-                        SnackBar(
-                          content:
-                              Text('Data Edited', textAlign: TextAlign.center),
-                          backgroundColor: Colors.black,
-                        ),
-                      );
-                      Future.delayed(Duration(milliseconds: 1200), () {
-                        Navigator.of(context).pop();
-                      });
-                    }
-                  },
-                  child: const Text('Edit Product',
-                      style: TextStyle(color: Colors.white)),
                 ),
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    _formKey.currentState!.save();
+                    _store.editProduct(data: {
+                      kProductName: _name,
+                      kProductLocation: _imageLocation,
+                      kProductCategory: _category,
+                      kProductDescription: _description,
+                      kProductPrice: _price
+                    }, documentId: product.pId);
+                    setState(() {
+                      isLoading = false;
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:
+                            Text('Data Edited', textAlign: TextAlign.center),
+                        backgroundColor: Colors.black,
+                      ),
+                    );
+                    Future.delayed(Duration(milliseconds: 1200), () {
+                      Navigator.of(context).pop();
+                    });
+                  }
+                },
+                child: const Text('Edit Product',
+                    style: TextStyle(color: Colors.white)),
               ),
             )
           ],

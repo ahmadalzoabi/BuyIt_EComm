@@ -7,6 +7,7 @@ import '../../models/product.dart';
 import '../../widgets/ShopButton.dart';
 import '../../providers/CartItem.dart';
 import '../../screens/user/cartScreen.dart';
+import '../../screens/user/Home_Screen.dart';
 
 class ProductInfo extends StatefulWidget {
   static const String routeName = '/ProductInfo';
@@ -36,7 +37,7 @@ class _ProductInfoState extends State<ProductInfo> {
 
   @override
   Widget build(BuildContext context) {
-    Product product = ModalRoute.of(context).settings.arguments;
+    Product product = ModalRoute.of(context)!.settings.arguments as Product;
     ScreenSize().init(context);
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +54,7 @@ class _ProductInfoState extends State<ProductInfo> {
                   height: ScreenSize.safeBlockVerticalWithAppBar * 0.6,
                   width: ScreenSize.safeBlockHorizontal,
                   child: Image.asset(
-                    product.pLocation,
+                    product.pLocation!,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -66,7 +67,9 @@ class _ProductInfoState extends State<ProductInfo> {
                       children: <Widget>[
                         GestureDetector(
                             onTap: () {
-                              Navigator.pop(context);
+                              Navigator.of(context).pushReplacementNamed(
+                                HomeScreen.routeName,
+                              );
                             },
                             child: Chip(label: Icon(Icons.arrow_back_ios))),
                         GestureDetector(
@@ -106,7 +109,7 @@ class _ProductInfoState extends State<ProductInfo> {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 3),
                               child: Text(
-                                'Name : ${product.pName.capitalize}',
+                                'Name : ${product.pName!.capitalize}',
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
@@ -114,7 +117,7 @@ class _ProductInfoState extends State<ProductInfo> {
                             Wrap(
                               children: [
                                 Text(
-                                  'Description : ${product.pDescription.capitalize}',
+                                  'Description : ${product.pDescription!.capitalize}',
                                   maxLines: 3,
                                   style: TextStyle(
                                       color: Colors.black54,
@@ -161,26 +164,23 @@ class _ProductInfoState extends State<ProductInfo> {
                         ),
                       ),
                     ),
-                    ButtonTheme(
-                      minWidth: ScreenSize.safeBlockHorizontal,
-                      height: ScreenSize.safeBlockVerticalWithAppBar * 0.08,
-                      child: Builder(
-                        builder: (ctx) => Consumer<CartItem>(
-                          builder: (context, cartItem, _) => RaisedButton(
+                    Consumer<CartItem>(
+                      builder: (context, cartItem, _) => ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(ScreenSize.screenWidth, ScreenSize.safeBlockVerticalWithAppBar * 0.08),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(10),
                                     topLeft: Radius.circular(10))),
-                            color: kMainColor,
-                            onPressed: () {
-                              cartItem.addProduct(ctx, product, _quantity);
-                            },
-                            child: Text(
-                              'Add to Cart'.toUpperCase(),
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                            onPrimary: Colors.black,
+                            primary: kMainColor),
+                        onPressed: () {
+                          cartItem.addProduct(context, product, _quantity);
+                        },
+                        child: Text(
+                          'Add to Cart'.toUpperCase(),
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),

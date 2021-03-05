@@ -14,7 +14,7 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  String _name, _price, _description, _category, _imageLocation;
+  String? _name, _price, _description, _category, _imageLocation;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _store = Store();
   bool isLoading = false;
@@ -28,7 +28,6 @@ class _AddProductState extends State<AddProduct> {
         centerTitle: true,
       ),
       backgroundColor: kMainColor,
-      // resizeToAvoidBottomPadding: false,
       body: SafeArea(
         child: Form(
           key: _formKey,
@@ -79,44 +78,44 @@ class _AddProductState extends State<AddProduct> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
-                        child: Builder(
-                          builder: (ctx) => FlatButton(
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.green,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 80, vertical: 12),
                             shape: StadiumBorder(),
-                            color: Colors.green,
-                            onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                _formKey.currentState.save();
-                                // _formKey.currentState.reset();
-                                _store.addProduct(
-                                  Product(
-                                      pName: _name,
-                                      pPrice: _price,
-                                      pDescription: _description,
-                                      pLocation: _imageLocation,
-                                      pCategory: _category),
-                                );
-                                setState(() {
-                                  isLoading = false;
-                                });
-                                Scaffold.of(ctx).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Data Added',
-                                        textAlign: TextAlign.center),
-                                    backgroundColor: Colors.black,
-                                  ),
-                                );
-                              }
-                            },
-                            child: const Text('Add Product',
-                                style: TextStyle(color: Colors.white)),
                           ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              _formKey.currentState!.save();
+                              // _formKey.currentState.reset();
+                              _store.addProduct(
+                                Product(
+                                    pName: _name,
+                                    pPrice: _price,
+                                    pDescription: _description,
+                                    pLocation: _imageLocation,
+                                    pCategory: _category),
+                              );
+                              setState(() {
+                                isLoading = false;
+                              });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Data Added',
+                                      textAlign: TextAlign.center),
+                                  backgroundColor: Colors.black,
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text('Add Product',
+                              style: TextStyle(color: Colors.white)),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

@@ -1,31 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../providers/modelHud.dart';
+
 class Auth {
   final _auth = FirebaseAuth.instance;
 
 // sign Up to firebase
-  Future signUp({String email, String password, BuildContext ctx}) async {
+  Future signUp({required String email, required String password, BuildContext? ctx, required ModelHud modelHud }) async {
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password.trim());
       return userCredential;
     } on FirebaseAuthException catch (err) {
-      var message = 'An error occurred, pelase check your credentials!';
+      String? message = 'An error occurred, pelase check your credentials!';
       if (err.message != null) {
         message = err.message;
       }
+      modelHud.changeIsLoading(false);
       print(message);
-      Scaffold.of(ctx).showSnackBar(
+      ScaffoldMessenger.of(ctx!).showSnackBar(
         SnackBar(
-          content: Text(message, textAlign: TextAlign.center),
+          content: Text(message!, textAlign: TextAlign.center),
           backgroundColor: Colors.black,
         ),
       );
     } catch (err) {
-      print(err);
-      var message = err.message;
-      Scaffold.of(ctx).showSnackBar(
+      print(err); 
+      String? message = 'An error occurred, pelase check your credentials!';
+      modelHud.changeIsLoading(false);
+     ScaffoldMessenger.of(ctx!).showSnackBar(
         SnackBar(
           content: Text(
             message,
@@ -38,27 +42,29 @@ class Auth {
   }
 
 // log in to firebase
-  Future logIn({String email, String password, BuildContext ctx}) async {
+  Future logIn({required String email, required String password, BuildContext? ctx,required ModelHud modelHud }) async {
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(
           email: email.trim(), password: password.trim());
       return userCredential;
     } on FirebaseAuthException catch (err) {
-      var message = 'An error occurred, pelase check your credentials!';
+      String? message = 'An error occurred, pelase check your credentials!';
       if (err.message != null) {
         message = err.message;
       }
       print(message);
-      Scaffold.of(ctx).showSnackBar(
+      modelHud.changeIsLoading(false);
+     ScaffoldMessenger.of(ctx!).showSnackBar(
         SnackBar(
-          content: Text(message, textAlign: TextAlign.center),
+          content: Text(message!, textAlign: TextAlign.center),
           backgroundColor: Colors.black,
         ),
       );
     } catch (err) {
-      var message = err.message;
+      String? message = 'An error occurred, pelase check your credentials!';
       print(message);
-      Scaffold.of(ctx).showSnackBar(
+      modelHud.changeIsLoading(false);
+     ScaffoldMessenger.of(ctx!).showSnackBar(
         SnackBar(
           content: Text(
             message,

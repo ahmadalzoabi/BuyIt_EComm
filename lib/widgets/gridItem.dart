@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../extensions.dart';
 
 class GridItem extends StatelessWidget {
-  final String image;
-  final String name;
-  final String price;
-  final Function edit;
-  final Function delete;
-  final Function add;
+  final String? image;
+  final String? name;
+  final String? price;
+  final Function? edit;
+  final Function? delete;
+  final Function? add;
   const GridItem(
-      {Key key, this.image, this.name, this.price, this.delete, this.edit, this.add})
+      {Key? key, this.image, this.name, this.price, this.delete, this.edit, this.add})
       : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class GridItem extends StatelessWidget {
                       color: Colors.blue,
                       size: 20,
                     ),
-                    onPressed: edit,
+                    onPressed: edit as void Function()?,
                   ),
                   IconButton(
                     tooltip: 'delete',
@@ -49,7 +49,7 @@ class GridItem extends StatelessWidget {
                       color: Colors.red,
                       size: 20,
                     ),
-                    onPressed: delete,
+                    onPressed: delete as void Function()?,
                   ),
                 ],
               )
@@ -61,7 +61,7 @@ class GridItem extends StatelessWidget {
                       color: Colors.blue,
                       size: 20,
                     ),
-                    onPressed: add,
+                    onPressed: add as void Function()?,
                   ),
       ),
     );

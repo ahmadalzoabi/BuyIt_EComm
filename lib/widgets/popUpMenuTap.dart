@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyPopupMenuItem<T> extends PopupMenuItem<T> {
   final Widget child;
   final Function onClick;
-  MyPopupMenuItem({@required this.child, @required this.onClick})
+  MyPopupMenuItem({required this.child, required this.onClick})
       : super(child: child);
 
   @override

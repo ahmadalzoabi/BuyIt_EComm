@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String hintText;
-  final IconData prefixIcon;
-  final String type;
-  final Function onSaved;
-  final String initValue;
+  final String? hintText;
+  final IconData? prefixIcon;
+  final String? type;
+  final Function? onSaved;
+  final String? initValue;
 
   const CustomTextField(
-      {Key key, this.hintText, this.prefixIcon, this.onSaved, this.type,this.initValue})
+      {Key? key, this.hintText, this.prefixIcon, this.onSaved, this.type,this.initValue})
       : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class CustomTextField extends StatelessWidget {
           switch (type) {
             case 'Name':
               {
-                if (val.trim().isEmpty)
+                if (val!.trim().isEmpty)
                   return '$type is empty';
                 else if (val.trim().length > 15)
                   return 'value is too Long';
@@ -34,7 +34,7 @@ class CustomTextField extends StatelessWidget {
               break;
             case 'Email':
               {
-                if (val.trim().isEmpty)
+                if (val!.trim().isEmpty)
                   return '$type is empty';
                 else if (!regExpEmail.hasMatch(val))
                   return '$type is not correct';
@@ -42,7 +42,7 @@ class CustomTextField extends StatelessWidget {
               break;
             case 'Password':
               {
-                if (val.trim().isEmpty)
+                if (val!.trim().isEmpty)
                   return '$type is empty';
                 else if (!regExpPass.hasMatch(val))
                   return '$type is not correct';
@@ -50,19 +50,19 @@ class CustomTextField extends StatelessWidget {
               break;
             case 'AdminAdd':
               {
-                if (val.trim().isEmpty) return 'Field is empty';
+                if (val!.trim().isEmpty) return 'Field is empty';
               }
               break;
             case 'AdminEdit':
               {
-                if (val.trim().isEmpty) return 'Field is empty';
+                if (val!.trim().isEmpty) return 'Field is empty';
               }
               break;  
           }
           return null;
         },
         cursorColor: kMainColor,
-        onSaved: onSaved,
+        onSaved: onSaved as void Function(String?)?,
         keyboardType: hintText == 'Product Price'
             ? TextInputType.number
             : TextInputType.text,

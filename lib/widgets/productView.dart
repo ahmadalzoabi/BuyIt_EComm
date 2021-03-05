@@ -8,12 +8,12 @@ import '../screens/user/productInfo.dart';
 
 Widget productView(Stream store) {
   return StreamBuilder<List<Product>>(
-    stream: store,
+    stream: store as Stream<List<Product>>?,
     builder: (BuildContext context, AsyncSnapshot<List<Product>> snapShot) {
       if (snapShot.hasData) {
         return GridView.builder(
           padding: const EdgeInsets.all(4.0),
-          itemCount: snapShot.data.length,
+          itemCount: snapShot.data!.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: 3 / 3,
@@ -23,18 +23,18 @@ Widget productView(Stream store) {
           itemBuilder: (context, index) => GestureDetector(
             onTap: () {
               Navigator.of(context).pushNamed(ProductInfo.routeName,
-                  arguments: snapShot.data[index]);
+                  arguments: snapShot.data![index]);
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Consumer<CartItem>(
                 builder: (context, cartItem, _) => Builder(
                   builder: (ctx) => GridItem(
-                    image: snapShot.data[index].pLocation,
-                    name: snapShot.data[index].pName,
-                    price: snapShot.data[index].pPrice,
+                    image: snapShot.data![index].pLocation,
+                    name: snapShot.data![index].pName,
+                    price: snapShot.data![index].pPrice,
                     add: () {
-                      cartItem.addItem(snapShot.data[index], ctx);
+                      cartItem.addItem(snapShot.data![index], ctx);
                     },
                   ),
                 ),

@@ -39,7 +39,7 @@ class _ManageProductState extends State<ManageProduct> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
               ),
-              itemCount: snapShot.data.length,
+              itemCount: snapShot.data!.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTapUp: (TapUpDetails details) async {
@@ -58,7 +58,7 @@ class _ManageProductState extends State<ManageProduct> {
                             onClick: () {
                               Navigator.of(context).pushNamed(
                                   EditProduct.routeName,
-                                  arguments: snapShot.data[index]);
+                                  arguments: snapShot.data![index]);
                             },
                             child: Text(
                               'Edit',
@@ -70,7 +70,7 @@ class _ManageProductState extends State<ManageProduct> {
                           MyPopupMenuItem(
                             onClick: () {
                               _store.deleteProduct(
-                                  documentId: snapShot.data[index].pId);
+                                  documentId: snapShot.data![index].pId);
                             },
                             child: Text(
                               'Delete',
@@ -84,16 +84,16 @@ class _ManageProductState extends State<ManageProduct> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: GridItem(
-                      image: snapShot.data[index].pLocation,
-                      name: snapShot.data[index].pName,
+                      image: snapShot.data![index].pLocation,
+                      name: snapShot.data![index].pName,
                       price: null,
                       delete: () {
                         _store.deleteProduct(
-                            documentId: snapShot.data[index].pId);
+                            documentId: snapShot.data![index].pId);
                       },
                       edit: () {
                         Navigator.of(context).pushNamed(EditProduct.routeName,
-                            arguments: snapShot.data[index]);
+                            arguments: snapShot.data![index]);
                       },
                     ),
                   ),
