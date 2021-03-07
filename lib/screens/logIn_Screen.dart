@@ -9,32 +9,43 @@ import '../widgets/logo.dart';
 import '../services/auth.dart';
 import '../widgets/TextField.dart';
 import '../providers/modelHud.dart';
+import '../services/dataCached.dart';
 import '../providers/adminMode.dart';
 import '../screens/SignUp_Screen.dart';
 import '../screens/user/Home_Screen.dart';
 import '../screens/admin/Admin_Screen.dart';
 
-class LogInScreen extends StatelessWidget {
+class LogInScreen extends StatefulWidget {
   static const String routeName = '/LogInScreen';
 
+  @override
+  _LogInScreenState createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
   GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
+
   String? email;
+  bool keepMeLoggedIn = false;
   String? password;
 
-  Future _validate(
-      BuildContext context, ModelHud modelHud, AdminMode adminMode) async {
+  Future _validate(BuildContext context, ModelHud modelHud, AdminMode adminMode) async {
     if (_signInKey.currentState!.validate()) {
       modelHud.changeIsLoading(true);
       _signInKey.currentState!.save();
       if (adminMode.isAdmin) {
         if (password == adminPassword && email == adminEmail) {
-          UserCredential userCredential = await (Auth()
-              .logIn(email: email!, password: password!, ctx: context,modelHud: modelHud) );
+          UserCredential userCredential = await (Auth().logIn(
+              email: email!,
+              password: password!,
+              ctx: context,
+              modelHud: modelHud));
           if (userCredential != null) {
             modelHud.changeIsLoading(false);
+            if (keepMeLoggedIn == true) {
+              DataCacheService.keepUserLoggedIn(keepMeLoggedIn);
+            }
             Navigator.of(context).pushReplacementNamed(AdminScreen.routeName);
-          } else {
-            modelHud.changeIsLoading(false);
           }
         } else {
           modelHud.changeIsLoading(false);
@@ -47,13 +58,17 @@ class LogInScreen extends StatelessWidget {
           );
         }
       } else {
-        UserCredential userCredential =
-            await (Auth().logIn(email: email!, password: password!, ctx: context,modelHud: modelHud) );
+        UserCredential userCredential = await (Auth().logIn(
+            email: email!,
+            password: password!,
+            ctx: context,
+            modelHud: modelHud));
         if (userCredential != null) {
           modelHud.changeIsLoading(false);
+          if (keepMeLoggedIn == true) {
+            DataCacheService.keepUserLoggedIn(keepMeLoggedIn);
+          }
           Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
-        } else {
-          modelHud.changeIsLoading(false);
         }
       }
     }
@@ -104,6 +119,31 @@ class LogInScreen extends StatelessWidget {
                     'Log In',
                     style: TextStyle(color: Colors.white),
                   ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Theme(
+                      data: ThemeData(unselectedWidgetColor: Colors.white),
+                      child: Checkbox(
+                        checkColor: Colors.white,
+                        activeColor: kMainColor,
+                        value: keepMeLoggedIn,
+                        onChanged: (value) {
+                          setState(() {
+                            keepMeLoggedIn = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Text(
+                      'Remmeber Me ',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
                 ),
               ),
               Padding(

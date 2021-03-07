@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
 import '../../extensions.dart';
 import '../../models/order.dart';
 import '../../services/store.dart';

@@ -21,6 +21,7 @@ RegExp regExpPass = RegExp(patternPass as String);
 // admin auth
 String adminPassword = 'admin1Buy*';
 String adminEmail = 'admin@gmail.com';
+const kIsAdmin = 'IsAdmin';
 
 
 // product properties
@@ -43,7 +44,6 @@ const kOrderTime = 'createdAt';
 const kTotallPrice = 'TotallPrice';
 const kAddress = 'Address';
 const kProductQuantity = 'Quantity';
-
 
 
 // user constant

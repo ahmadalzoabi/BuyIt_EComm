@@ -129,7 +129,7 @@ class Store {
   //   });
   // }
 
-  // map shanshote to list of order Detalis
+  // map shanshote to list of orders
   List<Order> _ordersListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data()!;
@@ -162,15 +162,16 @@ class Store {
         pPrice: data[kProductPrice],
         pDescription: data[kProductDescription],
         pLocation: data[kProductLocation],
+        pQuantity: data[kProductQuantity],
       );
     }).toList();
   }
 
   // load  order Detalis from fireBase
-  Stream<List<Product>> loadOrdersDetalis(documentId){
+  Stream<List<Product>> loadOrdersDetalis(documentId) {
     return _firestore
         .collection(kOrders)
-        .doc(documentId) 
+        .doc(documentId)
         .collection(kOrderDetails)
         .snapshots()
         .map(_orderDetalisListFromSnapshot);

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../logIn_Screen.dart';
 import '../../constants.dart';
 import '../../extensions.dart';
 import '../admin/addProduct.dart';
 import '../admin/OrdersScreen.dart';
 import '../admin/ManageProduct.dart';
+import '../../services/dataCached.dart';
 
 class AdminScreen extends StatelessWidget {
   static const String routeName = '/AdminScreen';
@@ -15,6 +18,15 @@ class AdminScreen extends StatelessWidget {
         backgroundColor: Colors.black,
         title: Text('Admin Controller'),
         centerTitle: true,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () async{
+                DataCacheService.deleteData();
+                await FirebaseAuth.instance.signOut();
+                Navigator.popAndPushNamed(context, LogInScreen.routeName);
+              })
+        ],
       ),
       backgroundColor: kMainColor,
       body: SafeArea(

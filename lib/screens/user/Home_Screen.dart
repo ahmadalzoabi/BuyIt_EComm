@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
 import '../../services/store.dart';
+import '../../services/dataCached.dart';
 import '../../widgets/productView.dart';
 import '../../screens/logIn_Screen.dart';
 import '../../widgets/CartBarWidget.dart';
@@ -37,9 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
               fixedColor: kMainColor,
               onTap: (value) async {
                 if (value == 2) {
-                  SharedPreferences pref =
-                      await SharedPreferences.getInstance();
-                  pref.clear();
+                  DataCacheService.deleteData();
                   await FirebaseAuth.instance.signOut();
                   Navigator.popAndPushNamed(context, LogInScreen.routeName);
                 }
