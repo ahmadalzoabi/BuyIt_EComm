@@ -35,7 +35,7 @@ class _LogInScreenState extends State<LogInScreen> {
       _signInKey.currentState!.save();
       if (adminMode.isAdmin) {
         if (password == adminPassword && email == adminEmail) {
-          UserCredential userCredential = await (Auth().logIn(
+          var userCredential = await (Auth().logIn(
               email: email!,
               password: password!,
               ctx: context,
@@ -58,7 +58,7 @@ class _LogInScreenState extends State<LogInScreen> {
           );
         }
       } else {
-        UserCredential userCredential = await (Auth().logIn(
+        var userCredential = await (Auth().logIn(
             email: email!,
             password: password!,
             ctx: context,
@@ -73,6 +73,8 @@ class _LogInScreenState extends State<LogInScreen> {
       }
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
