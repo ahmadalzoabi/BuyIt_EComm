@@ -111,7 +111,7 @@ class Store {
     }
   }
 
-//  anther method for store the order in firebase *** dont work with stream
+//  anther method for store the order in firebase 
   // storeOrders(double price, String? address, List<Product> products) {
   //   _firestore.collection(kOrders).add({
   //     kTotallPrice: price,
